@@ -1,24 +1,14 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
+*.sublime-workspace
 node_modules
-dist
-dist-ssr
-*.local
+static
+*.DS_Store
+build
+*.sublime-project
+*.log
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.vscode
+bin
+doc
+dist
+example/js/blueprint3d.js
+example/js/three.min.js

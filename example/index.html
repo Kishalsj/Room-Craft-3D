@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomPlanner 3D - Design Your Dream Space</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #4d44db;
+            --accent-color: #ff6584;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            padding: 15px 0;
+            transition: all 0.3s;
+        }
+        
+        .navbar.scrolled {
+            background-color: white !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+
+        .btn-primary {
+              box-shadow: 0 4px 12px rgba(75, 75, 75, 0.068); /* softer shadow for button */
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: white;
+            transform: skewY(-3deg);
+            z-index: 1;
+        }
+        
+        .hero-image {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .how-it-works {
+            background-color: #f1f1ffad;
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 15px;
+        }
+        
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 5px solid var(--light-color);
+        }
+        
+        .design-option-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            height: 100%;
+        }
+        
+        .design-option-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .design-option-blue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .design-option-green {
+            background: linear-gradient(135deg, #2af598 0%, #009efd 100%);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Animation classes */
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .animate-delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        /* Design selection page */
+        .design-selection {
+            padding: 100px 0;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Room pages */
+        .room-page {
+            padding: 100px 0;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .room-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        /* Gallery Section */
+
+        .gallery-section {
+            background-color: #e9e9fc83;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .gallery-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .gallery-item {
+            flex: 1 1 calc(33.333% - 20px); /* 3 items in a row */
+            max-width: calc(33.333% - 20px);
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            transition: all 0.3s;
+            background: #fff;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(46, 46, 46, 0.445);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.25rem;
+            text-align: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Section heading */
+        .section-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        
+
+    </style>
+    </head>
+    <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container d-flex justify-content-between align-items-center">
+        
+        <!-- Logo Left -->
+        <a class="navbar-brand fw-bold me-auto" href="#hero-section" style="color: var(--primary-color);">RoomPlanner <span class="text-dark">3D</span></a>
+        
+        <!-- Center Menu -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="#how-it-works">How It Works</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="#about">About Us</a>
+            </li>
+          </ul>
+        </div>
+    
+        <!-- Button Right -->
+        <div class="d-none d-lg-block ms-auto">
+          <a class="btn btn-primary shadow-sm" href="design-selection.html">Get Started</a>
+        </div>
+    
+        <!-- Mobile Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+      </div>
+    </nav>
+    
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Design Your Dream Space in 3D</h1>
+                    <p class="lead mb-5 animate__animated animate__fadeInDown animate__delay-1s">Create stunning room layouts with our intuitive 3D planner. Perfect for homeowners, interior designers, and architects.</p>
+                    <div class="animate__animated animate__fadeInDown animate__delay-2s">
+                        <a href="design-selection.html" class="btn btn-primary me-3">Get Started</a>
+                        <a href="#how-it-works" class="btn btn-outline-light">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="3D Room Design" class="img-fluid hero-image animate__animated animate__fadeIn">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Powerful Features</h2>
+                <p class="text-muted">Everything you need to create perfect room designs</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 animate__animated animate__fadeInUp">
+                    <div class="feature-card p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h4>3D Visualization</h4>
+                        <p class="text-muted">See your designs come to life with realistic 3D rendering from any angle.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-1">
+                    <div class="feature-card p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-object-group"></i>
+                        </div>
+                        <h4>Drag & Drop</h4>
+                        <p class="text-muted">Easily place furniture and decor with our intuitive drag and drop interface.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 animate__animated animate__fadeInUp animate__delay-2">
+                    <div class="feature-card p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4>Custom Materials</h4>
+                        <p class="text-muted">Choose from thousands of materials and colors to customize every surface.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">How It Works</h2>
+                <p class="text-muted">Design your perfect room in just a few simple steps</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number">1</div>
+                        <h4>Choose Your Starting Point</h4>
+                        <p>Start with a blank canvas or select from our professionally designed templates.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number">2</div>
+                        <h4>Design Your Space</h4>
+                        <p>Add walls, windows, doors, and furniture. Customize colors and materials.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number">3</div>
+                        <h4>Save & Share</h4>
+                        <p>Save your design, generate a shopping list, or share with others.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="design-selection.html" class="btn btn-primary">Start Designing Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">What Our Users Say</h2>
+                <p class="text-muted">Don't just take our word for it</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial-card text-center">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="testimonial-img">
+                        <h5>Sarah Johnson</h5>
+                        <p class="text-muted">Interior Designer</p>
+                        <p>"This tool has revolutionized how I present designs to my clients. The 3D visualization is incredibly realistic."</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card text-center">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="testimonial-img">
+                        <h5>Michael Chen</h5>
+                        <p class="text-muted">Homeowner</p>
+                        <p>"I redesigned my entire living room before buying a single piece of furniture. Saved me time and money!"</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card text-center">
+                        <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="User" class="testimonial-img">
+                        <h5>Emily Rodriguez</h5>
+                        <p class="text-muted">Architect</p>
+                        <p>"The perfect balance of simplicity for homeowners and powerful features for professionals."</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery-section" class="gallery-section">
+      <div class="container mx-auto px-4 md:px-6">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Inspiration Gallery</h2>
+          <p class="text-muted">
+            Browse through these stunning designs created with our platform to inspire your next project.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="gallery-grid">
+            <!-- First Row (3 Images) -->
+            <div class="gallery-row">
+              <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                  <img src="https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Room Design 1">
+                  <div class="gallery-overlay">
+                    <p>Room Design 1</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                  <img src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Room Design 2">
+                  <div class="gallery-overlay">
+                    <p>Room Design 2</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                  <img src="https://images.pexels.com/photos/6492397/pexels-photo-6492397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Room Design 3">
+                  <div class="gallery-overlay">
+                    <p>Room Design 3</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Second Row (6 Images) -->
+            <div class="gallery-row">
+              <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                  <img src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Room Design 4">
+                  <div class="gallery-overlay">
+                    <p>Room Design 4</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                  <img src="https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Room Design 5">
+                  <div class="gallery-overlay">
+                    <p>Room Design 5</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gallery-item">
+                <div class="gallery-image-wrapper">
+                  <img src="https://images.pexels.com/photos/2082090/pexels-photo-2082090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Room Design 6">
+                  <div class="gallery-overlay">
+                    <p>Room Design 6</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- You can add 3 more images here later if you want to have 6 images -->
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <a href="design-selection.html" class="btn btn-primary">Start Designing Now</a>
+      </div>
+
+      </div>
+    </section>
+
+
+    <!-- About Us Section -->
+    <section id="about" class="py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="fw-bold mb-4">About RoomPlanner 3D</h2>
+                    <p class="lead">We believe everyone deserves to live in a beautifully designed space.</p>
+                    <p>Founded in 2020, our mission is to make professional-grade room planning tools accessible to everyone. Whether you're redesigning a single room or planning an entire home, our intuitive platform gives you the power to visualize your ideas before you commit.</p>
+                    <p>Our team of designers, developers, and 3D artists work tirelessly to create the most realistic and user-friendly room planning experience available.</p>
+                    <a href="#" class="btn btn-primary mt-3">Learn More About Us</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Our Team" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 text-white" style="background-color: #2929f5ad;">
+        <div class="container py-5 text-center">
+            <h2 class="fw-bold mb-4">Ready to Design Your Dream Space?</h2>
+            <p class="lead mb-5">Join thousands of happy users creating beautiful rooms with our 3D planner.</p>
+            <a href="design-selection.html" class="btn btn-light btn-lg fw-bold">Get Started for Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h5 class="text-white mb-4">RoomPlanner 3D</h5>
+                    <p>Making room design accessible and enjoyable for everyone.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="#hero-section">Home</a></li>
+                        <li class="mb-2"><a href="#features">Features</a></li>
+                        <li class="mb-2"><a href="#how-it-works">How It Works</a></li>
+                        <li class="mb-2"><a href="#testimonials">Testimonials</a></li>
+                        <li class="mb-2"><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h5 class="text-white mb-4">Resources</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="#">Blog</a></li>
+                        <li class="mb-2"><a href="#">Tutorials</a></li>
+                        <li class="mb-2"><a href="#">FAQ</a></li>
+                        <li class="mb-2"><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-4">Newsletter</h5>
+                    <p>Subscribe to get tips and inspiration for your home design projects.</p>
+                    <form class="mt-4">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email">
+                            <button class="btn btn-primary" type="button">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2025 RoomPlanner 3D. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="small mb-0">
+                        <a href="#" class="text-white-50">Privacy Policy</a> | 
+                        <a href="#" class="text-white-50">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate__animated');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    const animationClass = element.classList[1];
+                    element.classList.add(animationClass);
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+        
+    </script>
+</body>
+</html>
