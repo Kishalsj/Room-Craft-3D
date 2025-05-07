@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomPlanner 3D - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --accent-color: #fc8181;
+            --light-color: #f8f9fa;
+            --dark-color: #1f2937;
+            --gradient-start: #a5b4fc;
+            --gradient-end: #818cf8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background-color: #f5f7ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdnjs.cloudflare.com/api/placeholder/1920/1080') center/cover no-repeat;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        /* 3D Geometric Elements */
+        .geometric-element {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .cube {
+            width: 200px;
+            height: 200px;
+            top: 15%;
+            left: 5%;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 15px;
+            transform: rotate(-15deg) perspective(500px) rotateY(15deg) rotateX(15deg);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        }
+
+        .sphere {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            right: 8%;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            border-radius: 50%;
+            animation-delay: 1s;
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25);
+        }
+
+        .prism {
+            width: 120px;
+            height: 180px;
+            top: 70%;
+            left: 12%;
+            background: linear-gradient(135deg, #93c5fd, #60a5fa);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation-delay: 2s;
+            box-shadow: 0 25px 50px -12px rgba(96, 165, 250, 0.25);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(-15deg) perspective(500px) rotateY(15deg) rotateX(15deg); }
+            50% { transform: translateY(-20px) rotate(-15deg) perspective(500px) rotateY(20deg) rotateX(10deg); }
+            100% { transform: translateY(0px) rotate(-15deg) perspective(500px) rotateY(15deg) rotateX(15deg); }
+        }
+        
+        .navbar {
+            padding: 15px 0;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.7rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            font-size: 1.05rem;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 150px 0;
+            position: relative;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.15);
+            max-width: 500px;
+            width: 100%;
+            transition: all 0.5s;
+            border: none;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(99, 102, 241, 0.03) 50%,
+                transparent 100%
+            );
+            animation: shine 5s infinite;
+            z-index: -1;
+        }
+
+        @keyframes shine {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        .login-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.2);
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0;
+        }
+
+        .login-logo span {
+            position: relative;
+            display: inline-block;
+        }
+
+        .login-logo span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: rgba(99, 102, 241, 0.2);
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .login-logo p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .login-form input {
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+        
+        .login-form input:focus {
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            border-color: var(--primary-color);
+            background-color: white;
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .login-social {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .social-login-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 12px;
+            margin: 0 6px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .facebook-btn {
+            background-color: #4267B2;
+        }
+        
+        .google-btn {
+            background-color: #4285F4;
+        }
+        
+        .social-login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .social-login-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #e2e8f0;
+        }
+        
+        .divider span {
+            background-color: white;
+            padding: 0 15px;
+            position: relative;
+            color: #64748b;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .alert {
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 25px;
+            display: none;
+            background-color: #fee2e2;
+            border-left: 4px solid #ef4444;
+            color: #b91c1c;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(79, 70, 229, 0.05) 0%, rgba(99, 102, 241, 0) 100%);
+            z-index: 0;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Newsletter input styling */
+        .newsletter-input {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .newsletter-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 12px 15px;
+            outline: none;
+        }
+
+        .newsletter-input input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-input .btn {
+            border-radius: 50px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+        }
+
+        /* User dropdown menu */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .user-icon:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            min-width: 220px;
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.3s;
+            border: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--dark-color);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .dropdown-item i {
+            margin-right: 12px;
+            font-size: 18px;
+            color: var(--primary-color);
+            width: 24px;
+            text-align: center;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .dropdown-divider {
+            margin: 8px 0;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Animation for user icon after login */
+        @keyframes userIconPop {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .user-dropdown {
+            animation: userIconPop 0.5s;
+        }
+
+        /* Error message animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.6s;
+        }
+
+        /* Input label animations */
+        .input-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+
+        .input-container label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            font-size: 1.05rem;
+            color: #64748b;
+            pointer-events: none;
+            transition: all 0.3s;
+            padding: 0 5px;
+        }
+
+        .input-container input:focus,
+        .input-container input:not(:placeholder-shown) {
+            border-color: var(--primary-color);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+
+        .input-container input:focus + label,
+        .input-container input:not(:placeholder-shown) + label {
+            top: 0;
+            left: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            background-color: white;
+        }
+
+        .input-container input::placeholder {
+            color: transparent;
+        }
+
+        .remember-me-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me-container input {
+            margin-right: 8px;
+        }
+
+        /* 3D room icon animation */
+        .room-icon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+        }
+
+        .room-icon .cube {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 8px;
+            transform: perspective(500px) rotateY(15deg) rotateX(15deg);
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+            animation: cubeSpin 10s linear infinite;
+        }
+
+        @keyframes cubeSpin {
+            0% { transform: perspective(500px) rotateY(0deg) rotateX(15deg); }
+            100% { transform: perspective(500px) rotateY(360deg) rotateX(15deg); }
+        }
+
+        .room-icon .furniture {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            bottom: 15px;
+            left: 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            transform: perspective(500px) rotateY(15deg);
+            animation: furnitureFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes furnitureFloat {
+            0%, 100% { transform: perspective(500px) rotateY(15deg) translateY(0); }
+            50% { transform: perspective(500px) rotateY(15deg) translateY(-5px); }
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+    <!-- 3D Geometric Elements for Background -->
+    <div class="geometric-element cube"></div>
+    <div class="geometric-element sphere"></div>
+    <div class="geometric-element prism"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            
+            <!-- Logo Left -->
+            <a class="navbar-brand fw-bold me-auto" href="index.html" style="color: var(--primary-color);">RoomPlanner <span class="text-dark">3D</span></a>
+            
+            <!-- Button Right -->
+        <div class="d-none d-lg-flex ms-auto align-items-center justify-content-center gap-3">
+            <a class="btn btn-primary shadow-sm" href="index.html">Back to Home</a>
+          </div>
+        
+            <!-- Mobile Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="userDropdown" class="user-dropdown d-none">
+                <div class="user-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <div class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="login-card animate__animated animate__fadeIn">
+                        <div class="login-logo">
+                            <!-- 3D Room Icon Animation -->
+                            <div class="room-icon">
+                                <div class="cube"></div>
+                                <div class="furniture"></div>
+                            </div>
+                            <h2>RoomPlanner <span style="color: black;">3D</span></h2>
+                            <p class="text-muted">Design your dream Room in 3D With Us</p>
+                        </div>
+                        
+                        <!-- Alert for errors -->
+                        <div class="alert alert-danger" id="loginAlert" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <span id="errorMessage">Invalid username or password</span>
+                        </div>
+                        
+                        <form class="login-form" id="loginForm">
+                            <div class="input-container">
+                                <input type="text" id="username" placeholder=" " required>
+                                <label for="username">Username</label>
+                            </div>
+                            
+                            <div class="input-container">
+                                <input type="password" id="password" placeholder=" " required>
+                                <label for="password">Password</label>
+                            </div>
+                            
+                            <!-- <div class="login-options">
+                                <div class="remember-me-container ">
+                                    <input class="form-check-input " type="checkbox" id="rememberMe">
+                                    <label class="form-check-label text-muted" for="rememberMe">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div> -->
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                </i>Login
+                            </button>
+                        </form>
+                        
+                        <div class="divider">
+                            <span>or continue with</span>
+                        </div>
+                        
+                        <div class="login-social">
+                            <!-- <a href="#" class="social-login-btn facebook-btn">
+                                <i class="fab fa-facebook-f me-2"></i>
+                                Facebook
+                            </a> -->
+                            <a href="#" class="social-login-btn google-btn">
+                                <i class="fab fa-google me-2"></i>
+                                Google
+                            </a>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <p class="mb-0">Don't have an account? <a href="#" class="text-primary fw-bold">Sign up</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h5 class="text-white mb-4">RoomPlanner 3D</h5>
+                    <p>Transform your space with our intuitive 3D room design platform. Visualize, plan, and create your dream home.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#testimonials">Testimonials</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h5 class="text-white mb-4">Resources</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-4">Newsletter</h5>
+                    <p>Get the latest tips and design inspiration delivered directly to your inbox.</p>
+                    <form class="mt-4">
+                        <div class="newsletter-input">
+                            <input type="email" placeholder="Your email address">
+                            <button class="btn" type="button">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2025 RoomPlanner 3D. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="small mb-0">
+                        <a href="#" class="text-white-50">Privacy Policy</a> | 
+                        <a href="#" class="text-white-50">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const usernameDisplay = document.getElementById('username-display');
+            
+            if (isLoggedIn === 'true') {
+                // Show user dropdown
+                document.getElementById('userDropdown').classList.remove('d-none');
+                
+                // Set username if available
+                const savedUsername = localStorage.getItem('username');
+                if (savedUsername && usernameDisplay) {
+                    usernameDisplay.textContent = savedUsername;
+                }
+                
+                // If on login page, redirect to design page
+                if (window.location.pathname.includes('login.html')) {
+                    window.location.href = 'design-selection.html';
+                }
+            }
+            
+            // Add input focus animations
+            const inputs = document.querySelectorAll('.input-container input');
+            inputs.forEach(input => {
+                // Check if input already has value (e.g. from autocomplete)
+                if (input.value) {
+                    input.classList.add('has-value');
+                }
+                
+                input.addEventListener('input', function() {
+                    if (this.value) {
+                        this.classList.add('has-value');
+                    } else {
+                        this.classList.remove('has-value');
+                    }
+                });
+            });
+        });
+
+        // Login Form Submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const alertElement = document.getElementById('loginAlert');
+            
+            // Add loading state to button
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Logging in...';
+            submitBtn.disabled = true;
+            
+            // Simulate API request delay
+            setTimeout(() => {
+                // Check credentials
+                if (username === 'Roomcraft' && password === '12345') {
+                    // Set login status in localStorage
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('username', username);
+                    
+                    // Add success animation to button
+                    submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Success!';
+                    submitBtn.classList.remove('btn-primary');
+                    submitBtn.classList.add('btn-success');
+                    
+                    // Redirect to design page after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'design-selection.html';
+                    }, 800);
+                } else {
+                    // Reset button
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    
+                    // Show error
+                    alertElement.style.display = 'block';
+                    alertElement.classList.add('shake');
+                    
+                    // Remove shake animation after it completes
+                    setTimeout(() => {
+                        alertElement.classList.remove('shake');
+                    }, 600);
+                }
+            }, 1000); // Simulate 1 second delay for API call
+        });
+
+        // User Dropdown Toggle
+        document.addEventListener('click', function(e) {
+            const userIcon = document.querySelector('.user-icon');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            if (userIcon && userIcon.contains(e.target)) {
+                // Toggle dropdown
+                dropdownMenu.classList.toggle('show');
+            } else if (dropdownMenu && !dropdownMenu.contains(e.target)) {
+                // Close dropdown if clicking outside
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Clear login status
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            
+            // Add logout animation
+            const userDropdown = document.getElementById('userDropdown');
+            userDropdown.classList.add('animate__animated', 'animate__fadeOut');
+            
+            // Redirect to home page after animation
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        });
+        
+        // Add some 3D hover effects to login card
+        const loginCard = document.querySelector('.login-card');
+        
+        loginCard.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element
+            const y = e.clientY - rect.top;  // y position within the element
+            
+            // Calculate rotation based on mouse position
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Limit the rotation to a subtle effect
+            const rotateY = ((x - centerX) / centerX) * 2; // -2 to 2 degrees
+            const rotateX = ((centerY - y) / centerY) * 1; // -1 to 1 degrees
+            
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+        });
+        
+        loginCard.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(-10px)';
+        });
+    </script>
+</body>
+</html>

@@ -203,6 +203,89 @@
         .back-to-home i {
             margin-right: 8px;
         }
+        
+        /* User dropdown menu */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .user-icon:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            min-width: 180px;
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--dark-color);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .dropdown-item i {
+            margin-right: 10px;
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+        .dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dropdown-divider {
+            margin: 5px 0;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Animation for user icon after login */
+        @keyframes userIconPop {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .user-dropdown {
+            animation: userIconPop 0.5s;
+        }
+
     </style>
     </head>
     <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
@@ -227,8 +310,19 @@
         </div>
     
         <!-- Button Right -->
-        <div class="d-none d-lg-block ms-auto">
+        <div class="d-none d-lg-flex ms-auto align-items-center justify-content-center gap-3">
           <a class="btn btn-primary shadow-sm" href="index.html">Back to Home</a>
+          <div class="user-dropdown d-none">
+            <div class="user-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="dropdown-menu">
+                <a href="#" class="dropdown-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
         </div>
     
         <!-- Mobile Button -->
@@ -375,6 +469,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', function() {

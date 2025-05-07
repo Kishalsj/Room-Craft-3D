@@ -5,6 +5,8 @@
 
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/example.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
     <script src="js/three.min.js"></script>
     <script src="js/blueprint3d.js"></script>
@@ -13,17 +15,19 @@
     <script src="js/bootstrap.js"></script>
     
     <script src="js/items.js"></script>
-    <script src="js/example.js"></script>
+    <script src="js/exampleDefault.js"></script>
+    <script src="js/auth.js"></script>
   </head>
 
   <body>
 
+    
     <div class="container-fluid">
       <div class="row main-row">
         <!-- Left Column -->
-        <div class="col-xs-3 sidebar">
+        <div class="col-xs-3 sidebar ">
           <!-- Main Navigation -->
-          <ul class="nav nav-sidebar">
+          <ul class="nav nav-sidebar ">
             <li id="floorplan_tab"><a href="#">
               Edit Floorplan
               <span class="glyphicon glyphicon-chevron-right pull-right"></span>
@@ -36,6 +40,7 @@
               Add Items
               <span class="glyphicon glyphicon-chevron-right pull-right"></span>
             </a></li>
+            
           </ul>
           <hr />
 
@@ -126,6 +131,11 @@
               </div>
             </div>
           </div>
+          <div class="back-home-container">
+            <a href="index.html" class="btn modern-btn back-home-btn">
+              <i class="fas fa-home"></i> Back to Home
+            </a>
+          </div>
         </div>
 
         <!-- Right Column -->
@@ -135,17 +145,19 @@
           <div id="viewer">
 
             <div id="main-controls">
-              <a href="#" class="btn btn-default btn-sm" id="new">
-                New Plan
+              <a href="#" class="btn btn-default" id="new">
+                <i class="fas fa-plus"></i> New Plan
               </a>
               <a href="#" class="btn btn-default btn-sm" id="saveFile">
-                Save Plan
+                <i class="fas fa-save"></i> Save Plan
               </a>
               <a class="btn btn-sm btn-default btn-file">
-               <input type="file" class="hidden-input" id="loadFile">
-               Load Plan
+                <input type="file" class="hidden-input" id="loadFile">
+                <i class="fas fa-folder-open"></i> Load Plan
               </a>
+              
             </div>
+            
 
             <div id="camera-controls">
               <a href="#" class="btn btn-default bottom" id="zoom-out">
@@ -218,6 +230,7 @@
       
         </div>
         <!-- End Right Column -->
+         
       </div>
     </div>
 

@@ -12,6 +12,7 @@ body {
   padding: 0;
   overflow: hidden;
   height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 div {
@@ -47,8 +48,9 @@ div {
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
   color: #fff;
-  background-color: #428bca;
+  background-color: #6c63ff;
 }
+
 
 /*
  * Main content
@@ -153,4 +155,51 @@ div {
   opacity: 0;
   cursor: inherit;
   display: block;
+}
+
+.modern-btn {
+  background-color: #cecbfd73; /* Indigo */
+  color: rgb(0, 0, 0);
+  border: #6c62fd91 1px solid;
+  padding: 10px 18px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.modern-btn:hover {
+  background-color: #cecbfdc4; 
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  text-decoration: none;
+}
+.modern-btn:active {
+  background-color: #cecbfdef; 
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-decoration: none;
+  
+}
+.modern-btn:focus {
+  outline: none;
+}
+
+
+/* Back to Home Button */
+.back-home-container {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.back-home-btn {
+  width: 75%;
+  padding: 12px;
+  font-size: 16px;
 }

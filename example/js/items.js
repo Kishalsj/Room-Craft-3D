@@ -86,12 +86,7 @@ $(document).ready(function() {
       "model" : "models/js/cb-clapboard_baked.js",
       "type" : "1"
     }, 
-        {
-      "name" : "Media Console - Black",
-      "image" : "models/thumbnails/thumbnail_moore-60-media-console-1.jpg",
-      "model" : "models/js/cb-moore_baked.js",
-      "type" : "1"
-    }, 
+       
        {
       "name" : "Sectional - Olive",
       "image" : "models/thumbnails/thumbnail_img21o.jpg",
