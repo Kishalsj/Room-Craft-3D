@@ -1,4 +1,4 @@
-// Authentication management for RoomPlanner 3D
+// Authentication management for RoomCraft 3D
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn');
