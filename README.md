@@ -22,55 +22,99 @@ RoomCraft 3D is a browser-based interior design application built with Three.js,
 	
 🚀 Getting Started
 ✅ Prerequisites
+
 Node.js ≥ 14.x
+
 npm ≥ 6.x
+
 Python ≥ 3.x (for running local server)
 
 📦 Install
+
 npm install --legacy-peer-deps
+
 npm install grunt@0.4.5
+
 npm install -g grunt-cli
+
 npm install --save-dev grunt-cli
 
+
+
 ▶ Run Locally
+
 npx grunt
+
 cd example
+
 python -m http.server
+
 Visit http://localhost:8000 to start designing!
 
+
+
+
 💡 What Can You Do With It?
+
 ✏️ Draw accurate 2D floor plans
+
 🪑 Add and arrange furniture
+
 🎨 Scale and resize objects to fit the space
+
 🧠 Visualize realistic 3D layouts instantly
+
 💾 Save your designs for future editing
+                                          
+
+
 
 🧠 Technology Stack
+
 Three.js – 3D graphics and scene management
+
 Bootstrap 3 – UI styling
+
 jQuery – DOM manipulation
+
 Grunt + Browserify – Build tools
+
 Python HTTP Server – For local testing
+
+
 
 🗂️ Project Structure
 RoomCraft-3D/
 ├── src/              # Core logic and rendering engine
+
 │   ├── core/         # Utilities and configuration
+
 │   ├── floorplanner/ # 2D drawing and layout tools
+
 │   ├── items/        # Furniture item logic
+
 │   ├── model/        # Data model (rooms, objects)
+
 │   └── three/        # 3D controller and viewer
+
 ├── example/          # Complete demo app with HTML, CSS, models
+
 ├── models/           # 3D furniture models
+
 ├── textures/         # Textures for items and environment
+
 ├── package.json
+
 ├── gruntfile.js
+
 └── README.md
+
 
 👨‍💻 For Developers
 After editing code in src/, rebuild the main JavaScript file:
 
 grunt
+
 This outputs the latest blueprint3d.js into example/js/.
 
 🤝 Contributing
