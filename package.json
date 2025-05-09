@@ -1,5 +1,5 @@
 {
-  "name": "blueprint3d",
+  "name": "roomCraft3d",
   "version": "0.0.1",
   "description": "",
   "license": "(MIT OR Apache-2.0)",
@@ -30,10 +30,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ekki/blueprint3d.git"
+    "url": "https://github.com/Ekki/roomCraft3d.git"
   },
   "scripts": {
-    "build": "browserify src/blueprint3d.js > example/js/blueprint3d.js --verbose"
+    "build": "browserify src/roomCraft3d.js > example/js/roomCraft3d.js --verbose"
   },
   "author": ""
 }

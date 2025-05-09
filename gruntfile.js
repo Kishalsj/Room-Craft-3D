@@ -3,7 +3,7 @@ module.exports = function (grunt) {
   require("matchdep").filterAll("grunt-*").forEach(grunt.loadNpmTasks);
 
   var globalConfig = {
-    moduleName: "blueprint3d",
+    moduleName: "roomCraft3d",
     sources: ["src/*.ts", "src/*/*.ts"],
     outDir: "dist",
     docDir: "doc",

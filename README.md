@@ -1,9 +1,25 @@
 
 # 🛋️ RoomCraft 3D – Web-Based Interior Design Tool
 
-[RoomCraft 3D Demo Video]
+[![Watch Demo](https://img.shields.io/badge/RoomCraft_3D-Demo_Video-red?logo=youtube)](https://youtu.be/1TVqX17_4fQ)
+
+---
 
 RoomCraft 3D is a browser-based interior design application built with **Three.js**, allowing **designers** to create, customize, and visualize floor plans in both **2D and 3D**. It’s ideal for in-store furniture design consultations and requires login access for authenticated designers.
+
+---
+
+## 🎨 Figma UI Prototype
+
+View the high-fidelity prototype created in Figma:
+
+👉 [View Figma Design](https://www.figma.com/design/DpZNj0FzVmLNVGGLJUQRqm/RoomCraft-3D?node-id=0-1&t=w0zo9nx4txccDSsb-1)
+
+---
+
+## 👨‍💻 GitHub Repository
+
+📂 [RoomCraft 3D Source Code](https://github.com/Kishalsj/Room-Craft-3D.git)
 
 ---
 
@@ -19,13 +35,6 @@ RoomCraft 3D is a browser-based interior design application built with **Three.j
 
 ---
 
-## 📸 Screenshots
-
-| 2D Floor Plan | Add Items | 3D Visualization |
-|---------------|-----------|------------------|
-| ![floorplan](https://s3.amazonaws.com/furnishup/floorplan.png) | ![add_items](https://s3.amazonaws.com/furnishup/add_items.png) | ![3d_design](https://s3.amazonaws.com/furnishup/design.png) |
-
----
 
 ## 🚀 Getting Started
 
@@ -103,14 +112,7 @@ After editing code in `src/`, rebuild the main JavaScript file:
 grunt
 ```
 
-This outputs the latest `blueprint3d.js` into `example/js/`.
-
----
-
-## 🌍 Live Example
-
-👉 Explore our working example here:  
-🔗 [http://furnishup.github.io/blueprint3d/example/](http://furnishup.github.io/blueprint3d/example/)
+This outputs the latest `roomCraft3d.js` into `example/js/`.
 
 ---
 
