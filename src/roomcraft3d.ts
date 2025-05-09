@@ -21,8 +21,8 @@ module BP3D {
     textureDir?: string;
   }
 
-  /** Blueprint3D core application. */
-  export class Blueprint3d {
+  /** roomCraft3d core application. */
+  export class roomCraft3d {
     
     private model: Model.Model;
 

@@ -8,7 +8,7 @@ module BP3D.Three {
     var floorplan = floorplan;
 
     var tol = 1;
-    var height = 300; // TODO: share with Blueprint.Wall
+    var height = 300; // TODO: share with roomCraft.Wall
 
     var dirLight;
 
