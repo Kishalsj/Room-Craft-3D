@@ -7,13 +7,28 @@
 
 RoomCraft 3D is a browser-based interior design application built with **Three.js**, allowing **designers** to create, customize, and visualize floor plans in both **2D and 3D**. It’s ideal for in-store furniture design consultations and requires login access for authenticated designers.
 
+
 ---
+
 
 ## 🎨 Figma UI Prototype
 
 View the high-fidelity prototype created in Figma:
 
 👉 [View Figma Design](https://www.figma.com/design/DpZNj0FzVmLNVGGLJUQRqm/RoomCraft-3D?node-id=0-1&t=w0zo9nx4txccDSsb-1)
+
+
+---
+
+## 🖼️ Project Screenshots
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/adfb7384-fbce-47f3-a384-6c3b4a769efb" alt="Screenshot 1" width="500" />
+  <img src="https://github.com/user-attachments/assets/e889b407-b119-44cd-9260-0ad56dacd770" alt="Screenshot 2" width="500" />
+  <img src="https://github.com/user-attachments/assets/64fed37b-3ee1-474a-9583-2b90765fbab9" alt="Screenshot 3" width="500" />
+  <img src="https://github.com/user-attachments/assets/1690bab4-96b5-443d-a2a2-b0e3817ae189" alt="Screenshot 4" width="500" />
+  <img src="https://github.com/user-attachments/assets/fadf7f34-172e-4863-b4da-3343b11b3b4e" alt="Screenshot 5" width="500" />
+</div>
 
 ---
 
